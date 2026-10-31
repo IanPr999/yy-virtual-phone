@@ -75,6 +75,20 @@ https://<你的域名>/index.html?v=37
 
 本仓库**不包含**任何浏览器隐私数据或本地项目日志（已在 `.gitignore` 中排除 `.workbuddy/`、`_edgeprof/`、`*.genie`、临时截图等）。所有上传内容均为可公开的应用源码、资源与测试。
 
+## 同步到 GitHub
+
+本仓库通过 `_sync_github.py` 同步更新。**注意**：当前开发环境的网络代理只允许访问 `api.github.com`，不允许 git 智能 HTTP 协议（直连 `github.com:443` 会被代理返回 502），因此不使用 `git push`，而是走 GitHub REST API 的 Git Data 接口（`/git/blobs`、`/git/trees`、`/git/commits`、`/git/refs`），该接口没有 1 MB 上传限制，1.2 MB 的单文件也能正常上传。
+
+```bash
+# 方式一：通过环境变量提供 token
+GH_TOKEN=ghp_xxx python _sync_github.py "本次改动说明"
+
+# 方式二：已把 token 存入系统凭据管理器（Git Credential Manager）则可省略
+python _sync_github.py "本次改动说明"
+```
+
+脚本会**增量同步**：先比对本地与远端 `main` 的文件 blob sha，仅上传发生变化的文件，无改动时直接退出、不创建空提交。
+
 ## License
 
 未指定开源协议。如需使用请先联系作者。

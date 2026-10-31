@@ -22,7 +22,21 @@ import os, sys, base64, json, subprocess, hashlib, urllib.request, urllib.error,
 
 TOKEN = os.environ.get('GH_TOKEN')
 if not TOKEN:
-    print('ERROR: 请先设置环境变量 GH_TOKEN（GitHub Personal Access Token，需 repo 权限）', file=sys.stderr)
+    # 回退到系统凭据管理器（Git Credential Manager）中已保存的 github.com 凭据
+    try:
+        out = subprocess.run(['git', 'credential', 'fill'],
+                             input='protocol=https\nhost=github.com\n',
+                             capture_output=True, text=True, timeout=20)
+        for line in out.stdout.splitlines():
+            if line.startswith('password='):
+                TOKEN = line[len('password='):]
+                break
+    except Exception:
+        pass
+if not TOKEN:
+    print('ERROR: 未找到 GitHub 凭据。请设置环境变量 GH_TOKEN，或先运行：\n'
+          '  printf "protocol=https\\nhost=github.com\\nusername=IanPr999\\npassword=<你的PAT>\\n" | git credential approve',
+          file=sys.stderr)
     sys.exit(1)
 
 OWNER = 'IanPr999'

@@ -1,0 +1,22 @@
+{
+  "sdkVersion": "1.0",
+  "id": "qingji.weight.exercise",
+  "name": "轻记",
+  "version": "1.0.0",
+  "author": "大小姐",
+  "description": "记录早晚体重与运动，查看周/月趋势和目标差距，支持独立美化与记录备份。",
+  "icon": "icon.png",
+  "entry": "index.html",
+  "permissions": [
+    "app.data.read",
+    "app.data.write"
+  ],
+  "resources": {
+    "assets": [
+      "assets/wallpaper.webp",
+      "assets/inter-300.woff2",
+      "assets/inter-400.woff2",
+      "assets/han.woff2"
+    ]
+  }
+}

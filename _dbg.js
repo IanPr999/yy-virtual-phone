@@ -1,0 +1,16 @@
+const fs=require('fs');
+const {JSDOM,VirtualConsole}=require('jsdom');
+const html=fs.readFileSync('小手机.html','utf8');
+const scripts=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m=>m[1]).join('\n;\n');
+const vc=new VirtualConsole(); vc.on('jsdomError',()=>{});
+const dom=new JSDOM(html,{url:'http://localhost:8080/',virtualConsole:vc,runScripts:'outside-only',pretendToBeVisual:true});
+const w=dom.window;
+w.requestAnimationFrame=cb=>setTimeout(()=>cb(Date.now()),0);
+w.scrollTo=()=>{}; w.matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){}});
+w.URL.createObjectURL=()=>'blob:x';
+w.eval(scripts);
+const tcfg={url:'https://api.test.com/v1',key:'k',model:'m1',params:{temperature:0.8,topP:1,frequencyPenalty:0}};
+let calls=[];
+w.fetch=(u,o)=>{ const b=JSON.parse(o.body); calls.push(b); return Promise.resolve({ok:false,status:400,text:()=>Promise.resolve('{"error":{"message":"prompt is too long"}}')}); };
+w.callAPI(tcfg,[{role:'system',content:'你是他'},{role:'user',content:'在吗'}],(e,t)=>console.log('CB err=',String(e).slice(0,120),'text=',t));
+setTimeout(()=>{ console.log('calls=',calls.length, JSON.stringify(calls.map(c=>Object.keys(c)))); },200);

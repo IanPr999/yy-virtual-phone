@@ -1,0 +1,15 @@
+# ---- WorkBuddy internal / private project metadata ----
+.workbuddy/
+*.genie
+serve.log
+
+# ---- Browser privacy dump (Edge profile data) ----
+_edgeprof/
+
+# ---- Scratch / temporary screenshots & temp html ----
+_ui_tmp.html
+_ui_*.png
+_preview*.png
+
+# ---- Node / misc ----
+node_modules/

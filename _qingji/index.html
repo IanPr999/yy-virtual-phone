@@ -1,0 +1,1293 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
+<meta name="color-scheme" content="light">
+<title>轻记 · 体重与运动</title>
+<style>@font-face{font-family:Qingji;src:url("assets/inter-300.woff2") format("woff2");font-weight:300;font-display:swap}
+@font-face{font-family:Qingji;src:url("assets/inter-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:QingjiHan;src:url("assets/han.woff2") format("woff2");font-weight:300 700;font-display:swap}
+:root{--q-ink:#413e38;--q-sub:#7d7467;--q-glass:linear-gradient(120deg,rgba(255,255,252,.18),rgba(255,255,252,.07));--q-edge:rgba(255,255,255,.48);--q-blur:7px;--q-am:#96734e;--q-pm:#9b8caa;--q-goal:#829274;--q-sheet:#f1ecdf;--q-line:rgba(95,79,54,.12);--q-shadow:0 8px 24px -18px rgba(55,43,25,.4);--q-font:Qingji,QingjiHan,"MiSans","PingFang SC","Microsoft YaHei",sans-serif;--q-visible-h:100dvh;--q-safe-top:max(16px,var(--ai-phone-app-safe-top,env(safe-area-inset-top,16px)));--q-safe-bottom:max(12px,var(--ai-phone-app-safe-bottom,env(safe-area-inset-bottom,12px)))}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{font:400 14px/1.5 var(--q-font);color:var(--q-ink);background:#e7decd;font-synthesis:none}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;appearance:none;-webkit-appearance:none;border:0;background:transparent;padding:0}
+button:disabled{cursor:default;opacity:.5}
+button:focus-visible,svg [role=button]:focus-visible{outline:2px solid #a48961;outline-offset:3px}
+input,textarea,select{max-width:100%;min-width:0;box-sizing:border-box}
+input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid #a4896144;outline-offset:1px}
+svg.q-icon{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;vertical-align:middle}
+.q-shell{position:relative;isolation:isolate;display:flex;flex-direction:column;width:100%;height:100dvh;min-height:0;overflow:hidden;color:var(--q-ink);background:#e5ddce}
+.q-scene{position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(245,240,229,.10),rgba(245,240,229,.13)),url("assets/wallpaper.webp") center/cover no-repeat}
+.q-header{flex:none;padding:calc(var(--q-safe-top) + 3px) 74px 17px 22px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.q-header h1{margin:0;font-size:25px;font-weight:300;line-height:1.05;letter-spacing:.08em}
+.q-brand-dot{color:#9b825e}
+.q-header p{font-size:10px;letter-spacing:.16em;color:var(--q-sub);margin:7px 0 0}
+.q-save-state{font-size:10px;color:var(--q-sub);white-space:nowrap}
+.q-save-state[data-error=true]{color:#a25c4f}
+.q-floating-theme{position:fixed;z-index:60;top:calc(var(--q-safe-top) + 5px);right:20px;width:40px;height:40px;display:grid;place-items:center;border-radius:50%;border:.65px solid #ffffff88;background:rgba(246,241,228,.25);color:#625743;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);box-shadow:var(--q-shadow)}
+.q-main{flex:1;min-height:0;overflow:auto;overscroll-behavior-y:contain;padding:0 20px 28px;scrollbar-width:none}
+.q-main::-webkit-scrollbar{display:none}
+.q-page{max-width:600px;margin:auto;padding-top:3px}
+.q-card{background:var(--q-glass);border:.65px solid var(--q-edge);border-right-color:rgba(255,255,255,.22);border-bottom-color:rgba(255,255,255,.28);border-radius:24px;box-shadow:var(--q-shadow);backdrop-filter:blur(var(--q-blur)) saturate(1.02);-webkit-backdrop-filter:blur(var(--q-blur)) saturate(1.02)}
+.q-eyebrow{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--q-sub)}
+.q-date-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:3px 0 18px}
+.q-date-group{display:flex;align-items:center;gap:9px}
+.q-date-input{border:0;background:transparent;font-size:14px;width:150px;line-height:30px;padding:0;color:var(--q-ink)}
+.q-weekday{font-size:10px;color:var(--q-sub)}
+.q-icon-btn{display:grid;place-items:center;flex:none;width:32px;height:32px;border-radius:50%;border:.65px solid #ffffff59;background:rgba(255,255,255,.10)}
+.q-icon-btn .q-icon{width:18px;height:18px}
+.q-text-btn{font-size:11px;color:var(--q-sub);padding:6px 2px}
+.q-hero{padding:21px 22px 18px;margin-bottom:15px}
+.q-hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+.q-hero-value{font-size:48px;line-height:1.2;font-weight:300;letter-spacing:-.06em;margin:8px 0 2px;font-variant-numeric:tabular-nums}
+.q-unit{font-size:12px;letter-spacing:.02em;margin-left:5px;color:var(--q-sub);font-weight:400}
+.q-hero-date{font-size:10px;color:var(--q-sub);margin-top:3px}
+.q-goal-side{min-width:94px;text-align:right;padding-top:0}
+.q-goal-value{font-size:22px;font-weight:300;letter-spacing:-.02em;margin-top:12px;line-height:1.4;white-space:nowrap}
+.q-goal-link{display:inline-flex;align-items:center;gap:4px;font-size:10px;color:var(--q-sub);margin-top:9px}
+.q-goal-link .q-icon{width:12px;height:12px}
+.q-goal-gap{border-top:.65px solid var(--q-line);margin-top:16px;padding-top:13px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.q-goal-gap span{font-size:11px;color:var(--q-sub)}
+.q-goal-gap strong{font-size:13px;font-weight:400;letter-spacing:.015em}
+.q-weights{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:24px}
+.q-weight{padding:16px 17px 14px;text-align:left;min-width:0;width:100%;transition:transform .15s}
+.q-weight:active{transform:scale(.98)}
+.q-weight-head{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:11px;color:var(--q-sub)}
+.q-weight-head .q-icon{width:17px;height:17px;color:var(--q-am)}
+.q-weight[data-slot=pm] .q-weight-head .q-icon{color:var(--q-pm)}
+.q-weight-number{font-size:32px;font-weight:300;line-height:1.2;letter-spacing:-.035em;font-variant-numeric:tabular-nums;margin:14px 0 8px;white-space:nowrap}
+.q-weight-number .q-unit{font-size:10px;margin-left:3px}
+.q-weight-note{font-size:10px;color:var(--q-sub);display:flex;justify-content:space-between;align-items:center}
+.q-weight-note .q-icon{width:12px;height:12px}
+.q-section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 1px 13px}
+.q-section-title h2{font-size:16px;font-weight:400;margin:0;letter-spacing:.02em}
+.q-section-title span{font-size:10px;color:var(--q-sub)}
+.q-workout-types{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:15px}
+.q-workout-chip{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:.65px solid #ffffff78;border-radius:999px;min-height:41px;padding:10px 14px;background:var(--q-glass);backdrop-filter:blur(var(--q-blur));-webkit-backdrop-filter:blur(var(--q-blur));font-size:12px;box-shadow:var(--q-shadow)}
+.q-workout-chip .q-icon{width:17px;height:17px;color:#847357}
+.q-workout-chip em{font-size:10px;font-style:normal;color:var(--q-sub)}
+.q-workout-add{width:41px;height:41px;border-radius:50%;border:.65px dashed #b2a58e;background:#ffffff14;display:grid;place-items:center}
+.q-workout-add .q-icon{width:17px;height:17px}
+.q-record-list{padding:2px 16px}
+.q-workout-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;width:100%;text-align:left;border-bottom:.65px solid var(--q-line)}
+.q-workout-row:last-child{border-bottom:0}
+.q-record-name{display:flex;align-items:center;gap:10px;min-width:0;overflow-wrap:anywhere;font-size:13px}
+.q-record-name .q-icon{width:16px;height:16px;color:#87765d}
+.q-record-time{display:flex;align-items:center;gap:7px;flex:none;font-size:11px;color:var(--q-sub);font-variant-numeric:tabular-nums}
+.q-record-time .q-icon{width:13px;height:13px}
+.q-empty{font-size:12px;line-height:1.8;color:var(--q-sub);padding:22px 16px;text-align:center}
+.q-empty .q-icon{display:block;width:24px;height:24px;margin:0 auto 8px;opacity:.6}
+.q-loading{padding:45px 20px;text-align:center;color:var(--q-sub)}
+.q-hint{font-size:10px;line-height:1.7;color:var(--q-sub);margin:12px 1px}
+.q-nav{display:flex;justify-content:space-around;flex:none;align-items:center;margin:0 16px var(--q-safe-bottom);padding:9px 10px;border-radius:23px;gap:8px}
+.q-nav button{display:flex;align-items:center;flex-direction:column;justify-content:center;gap:3px;min-height:43px;flex:1;color:var(--q-sub);font-size:10px;border-radius:15px}
+.q-nav .q-icon{width:20px;height:20px}
+.q-nav button[aria-current=page]{background:rgba(255,255,255,.15);color:var(--q-ink);box-shadow:inset 0 0 0 .5px #ffffff24}
+.q-page-head{display:flex;align-items:center;justify-content:space-between;margin:4px 2px 18px;gap:15px}
+.q-page-head h2{font-weight:300;font-size:24px;margin:0;letter-spacing:.04em}
+.q-segment{display:flex;align-items:center;background:#ffffff14;border:.65px solid #ffffff4d;border-radius:999px;padding:3px;gap:2px}
+.q-segment button{font-size:11px;padding:6px 13px;border-radius:999px;color:var(--q-sub)}
+.q-segment button[aria-pressed=true]{background:#ffffff30;color:var(--q-ink)}
+.q-period{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 1px;margin-bottom:14px}
+.q-period-title{text-align:center;font-size:13px;font-variant-numeric:tabular-nums}
+.q-period-title small{display:block;font-size:10px;color:var(--q-sub);margin-top:3px}
+.q-chart-card{padding:17px 13px 11px;margin-bottom:14px}
+.q-legend{display:flex;gap:13px;align-items:center;flex-wrap:wrap;padding:0 5px;font-size:10px;color:var(--q-sub);margin-bottom:7px}
+.q-legend span{display:flex;align-items:center;gap:5px}
+.q-line-key{width:12px;border-top:2px solid var(--q-am);display:inline-block}
+.q-line-key.pm{border-color:var(--q-pm)}
+.q-line-key.goal{border-color:var(--q-goal);border-top-style:dashed}
+.q-work-key{width:4px;height:4px;border-radius:50%;background:var(--q-goal)}
+.q-chart{display:block;width:100%;height:auto;overflow:visible;touch-action:pan-y}
+.q-chart text{font-family:var(--q-font);fill:var(--q-sub);font-size:15px;font-weight:400}
+.q-chart .q-tick{font-size:14px}
+.q-chart .q-grid{stroke:var(--q-line);stroke-width:1;stroke-dasharray:2 6}
+.q-chart .q-series{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.q-chart .am{stroke:var(--q-am)}
+.q-chart .pm{stroke:var(--q-pm)}
+.q-chart .q-goal-line{stroke:var(--q-goal);stroke-width:1.5;stroke-dasharray:7 6}
+.q-chart .q-dot-am{fill:var(--q-am);stroke:rgba(255,255,255,.8);stroke-width:1.5}
+.q-chart .q-dot-pm{fill:var(--q-pm);stroke:rgba(255,255,255,.8);stroke-width:1.5}
+.q-chart .q-workout-dot{fill:var(--q-goal)}
+.q-chart .q-picked{stroke:rgba(106,91,65,.26);stroke-dasharray:3 5;stroke-width:1}
+.q-chart .q-hit{fill:transparent;cursor:pointer;stroke:none}
+.q-chart-note{font-size:10px;text-align:center;color:var(--q-sub);margin-top:0}
+.q-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:21px}
+.q-stat{padding:13px 9px;text-align:center;border-radius:18px;min-width:0}
+.q-stat strong{font-size:19px;font-weight:300;display:block;font-variant-numeric:tabular-nums;white-space:nowrap}
+.q-stat span{font-size:10px;color:var(--q-sub);display:block;margin-top:3px}
+.q-detail{padding:18px;margin-bottom:12px}
+.q-detail-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px;font-size:13px}
+.q-detail-weights{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:15px}
+.q-detail-weights label{font-size:10px;color:var(--q-sub);display:block}
+.q-detail-weights strong{font-size:23px;font-weight:300;line-height:1.5}
+.q-detail-motion{font-size:11px;color:var(--q-sub);border-top:.65px solid var(--q-line);padding-top:12px;line-height:1.8;overflow-wrap:anywhere}
+.q-settings-card{padding:4px 18px;margin-bottom:18px}
+.q-setting-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 0;border-bottom:.65px solid var(--q-line);width:100%;text-align:left}
+.q-setting-row:last-child{border-bottom:0}
+.q-setting-row strong{display:block;font-weight:400;font-size:13px}
+.q-setting-row small{display:block;font-size:10px;color:var(--q-sub);margin-top:4px;line-height:1.5}
+.q-setting-value{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--q-sub);flex:none}
+.q-setting-value .q-icon{width:15px;height:15px}
+.q-type-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 0;border-bottom:.65px solid var(--q-line)}
+.q-type-row:last-child{border-bottom:0}
+.q-type-name{font-size:13px;overflow-wrap:anywhere;min-width:0}
+.q-type-actions{display:flex;gap:12px;flex:none}
+.q-type-actions button{font-size:10px;color:var(--q-sub)}
+.q-danger{color:#a06655!important}
+.q-footer-note{text-align:center;color:var(--q-sub);font-size:10px;letter-spacing:.04em;margin:20px 0 5px;line-height:1.8}
+.q-error-panel{padding:24px;border-radius:24px;background:#f7f0df;color:#514838;line-height:1.8}
+.q-error-panel button{display:block;margin:18px auto 0;border:1px solid #cab99d;padding:9px 20px;border-radius:999px}
+.q-overlay{position:fixed;left:0;top:0;width:100%;height:var(--q-visible-h,100dvh);z-index:1000;display:flex;align-items:center;justify-content:center;padding:12px;padding-top:max(12px,var(--ai-phone-app-safe-top,0px));background:rgba(65,56,42,.20);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.q-sheet{--sheet-max:calc(var(--q-visible-h,100dvh) - max(24px,calc(var(--ai-phone-app-safe-top,0px) + 24px)));background:linear-gradient(125deg,rgba(249,246,236,.96),rgba(241,235,222,.93));border:.65px solid #ffffffa6;border-radius:25px;box-shadow:0 20px 60px -22px #382c1e55;width:min(480px,100%);max-height:var(--sheet-max);overflow:auto;padding:23px;color:#413e38;font-family:var(--q-font);display:flex;flex-direction:column;gap:16px}
+.q-sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex:none}
+.q-sheet-head h2{font-size:18px;font-weight:400;margin:0}
+.q-close{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:#ffffff30;border:.65px solid #ffffff73;flex:none}
+.q-close .q-icon{width:17px;height:17px}
+.q-form{display:flex;flex-direction:column;gap:16px;min-height:0}
+.q-field{display:flex;flex-direction:column;gap:7px;min-width:0;font-size:12px;color:#7c715f}
+.q-input{border:.65px solid #ac9b7d42;border-radius:13px;background:#ffffff42;padding:11px 12px;width:100%;font-size:14px;color:#494236;min-height:43px;outline:none}
+.q-number-input{font-size:38px;font-weight:300;letter-spacing:-.03em;padding:15px 16px;font-variant-numeric:tabular-nums}
+.q-field-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.q-form-actions{display:flex;justify-content:flex-end;align-items:center;gap:9px;flex:none}
+.q-btn{min-height:39px;min-width:66px;border-radius:12px;padding:9px 15px;background:#ffffff38;border:.65px solid #ffffff6e;font-size:12px}
+.q-btn-primary{background:rgba(146,121,83,.18);border-color:rgba(146,121,83,.13)}
+.q-btn-delete{color:#a16654;background:transparent;border-color:transparent;margin-right:auto;padding-left:0;min-width:0}
+.q-form-error{font-size:11px;color:#a05f4e;line-height:1.6;min-height:0;white-space:pre-wrap}
+.q-form-error:empty{display:none}
+.q-sheet-note{font-size:11px;color:#837765;margin:0;line-height:1.7}
+.q-theme-sheet{height:min(690px,var(--sheet-max));width:min(520px,100%);gap:13px}
+.q-theme-presets{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;flex:none}
+.q-theme-choice{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0;font-size:10px;color:#817560;padding:4px 0}
+.q-swatch{width:32px;height:32px;border-radius:11px;border:.65px solid #ffffffab;box-shadow:inset 0 0 0 2px #ffffff29}
+.q-theme-choice[aria-pressed=true] .q-swatch{outline:2px solid #958369;outline-offset:2px}
+.q-theme-label{display:flex;justify-content:space-between;align-items:center;gap:10px;flex:none;font-size:13px}
+.q-theme-label span:last-child{font-size:10px;color:#8a775a}
+.q-css-editor{min-height:90px;flex:1;width:100%;resize:none;outline:none;background:#ffffff2b;border:.65px solid #ac9b7d33;border-radius:15px;padding:13px;font:400 12px/1.65 var(--q-font);color:#514a3f;tab-size:2}
+.q-theme-tools{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;flex:none}
+.q-theme-tools .q-btn{min-width:0;padding:8px 2px;font-size:11px}
+.q-theme-status{min-height:16px;font-size:10px;color:#827561;flex:none;line-height:1.5}
+.q-theme-status[data-error=true]{color:#a05e4c}
+.q-file-input{display:none!important}
+.q-import-summary{background:#ffffff24;border:.65px solid #ffffff40;border-radius:14px;padding:13px 15px;font-size:12px;color:#6b604f;line-height:1.9}
+#q-toast{position:fixed;z-index:2000;left:50%;bottom:max(100px,calc(var(--q-safe-bottom) + 88px));transform:translate(-50%,10px);opacity:0;pointer-events:none;max-width:calc(100% - 42px);width:max-content;max-height:160px;overflow:auto;padding:11px 17px;border-radius:18px;border:.65px solid #ffffff8a;background:rgba(248,243,231,.96);box-shadow:0 10px 35px -18px #45321b66;color:#635743;font-size:12px;transition:opacity .15s,transform .15s}
+#q-toast[data-show=true]{opacity:1;transform:translate(-50%,0)}
+.q-shell[data-theme=cream]{--q-glass:linear-gradient(120deg,#fff2ce4a,#ffecc620);--q-ink:#554733}
+.q-shell[data-theme=mint]{--q-glass:linear-gradient(120deg,#dcf3df4a,#d5eed920);--q-ink:#45594d;--q-am:#708b6d}
+.q-shell[data-theme=lilac]{--q-glass:linear-gradient(120deg,#efe4f74a,#e5daf120);--q-ink:#5a5065;--q-am:#92819c}
+.q-shell[data-theme=rose]{--q-glass:linear-gradient(120deg,#fbe4e44a,#f5d9dc20);--q-ink:#674e50;--q-am:#af8580}
+.q-shell[data-theme=plain]{--q-glass:#fffdf78c;--q-ink:#454238;background:#f2eee6}
+.q-shell[data-theme=plain] .q-scene{display:none}
+@media(max-width:360px){.q-main{padding-left:16px;padding-right:16px}.q-header{padding-left:18px}.q-hero{padding:18px}.q-weights{gap:11px}.q-weight{padding:14px}.q-weight-number{font-size:28px}.q-hero-value{font-size:43px}.q-workout-chip{padding:9px 12px}.q-sheet{padding:18px;gap:13px}.q-theme-tools{grid-template-columns:repeat(3,minmax(0,1fr))}.q-stat strong{font-size:17px}.q-period-title{font-size:12px}}
+@media(max-width:360px){.q-theme-sheet{gap:10px}.q-theme-sheet>.q-sheet-note{font-size:10px}.q-theme-sheet .q-css-editor{min-height:70px}}
+@media(max-height:540px){.q-theme-presets,.q-theme-sheet>.q-sheet-note{display:none}.q-theme-sheet{gap:8px;padding:12px}.q-css-editor{min-height:70px}}
+.q-theme-sheet[data-compact=true] .q-theme-presets,.q-theme-sheet[data-compact=true]>.q-sheet-note{display:none}
+.q-theme-sheet[data-compact=true]{gap:8px;padding:12px}
+@media(prefers-reduced-motion:reduce){.q-page{animation:none}#q-toast,.q-weight{transition:none}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.q-shell{--q-glass:rgba(246,241,230,.85)}}
+@keyframes q-appear{from{opacity:.5;transform:translateY(3px)}to{opacity:1;transform:none}}
+</style>
+<style id="q-custom-style"></style>
+</head>
+<body>
+<div id="qingji" class="q-shell" data-theme="glass">
+  <div class="q-scene" aria-hidden="true"></div>
+  <header class="q-header">
+    <div><h1>轻记<span class="q-brand-dot">.</span></h1><p>体重与运动</p></div>
+    <span id="q-save-state" class="q-save-state" role="status">正在打开</span>
+  </header>
+  <main id="q-main" class="q-main" aria-label="轻记内容"><div class="q-loading">正在读取记录…</div></main>
+  <nav class="q-nav q-card" aria-label="主导航">
+    <button type="button" data-tab="today" aria-current="page"><span data-icon="sun"></span><span>今日</span></button>
+    <button type="button" data-tab="trend"><span data-icon="chart"></span><span>趋势</span></button>
+    <button type="button" data-tab="settings"><span data-icon="settings"></span><span>设置</span></button>
+  </nav>
+</div>
+<button id="q-theme-launch" type="button" class="q-floating-theme" aria-label="打开美化窗口" title="美化与自定义 CSS"><span data-icon="palette"></span></button>
+<div id="q-modal-root"></div>
+<div id="q-toast" role="status" aria-live="polite"></div>
+<script>(() => {
+  // work/qingji-app/src/core.mjs
+  var DEFAULT_TYPES = [{ id: "incline", name: "爬坡" }, { id: "swim", name: "游泳" }, { id: "training", name: "私教课" }];
+  var THEMES = ["glass", "cream", "mint", "lilac", "rose", "plain"];
+  var DEFAULT_CSS = `/* 轻记 · 独立美化。修改后点「应用」。 */
+:root {
+  /* 取消注释后可覆盖主题配色：
+  --q-ink: #413e38;
+  --q-sub: #7d7467;
+  --q-glass: linear-gradient(120deg, rgba(255,255,252,.18), rgba(255,255,252,.07));
+  --q-am: #96734e;
+  --q-pm: #9b8caa;
+  --q-goal: #829274;
+  */
+  --q-blur: 7px;
+}
+.q-card { border-radius: 24px; }
+.q-weight-number { font-weight: 300; }
+/* 可继续修改：.q-header、.q-workout-chip、.q-nav、.q-chart。 */`;
+  function freshState() {
+    return { schemaVersion: 1, goal: null, weights: {}, workouts: [], types: DEFAULT_TYPES.map((x) => ({ ...x })), theme: { preset: "glass", css: DEFAULT_CSS }, updatedAt: null };
+  }
+  function clone(x) {
+    return JSON.parse(JSON.stringify(x));
+  }
+  function dateKey(d = /* @__PURE__ */ new Date()) {
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+  function timeKey(d = /* @__PURE__ */ new Date()) {
+    return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
+  }
+  function dateObject(key) {
+    const [y, m, d] = String(key).split("-").map(Number);
+    return new Date(y, m - 1, d, 12, 0, 0, 0);
+  }
+  function validDate(key) {
+    return typeof key === "string" && /^\d{4}-\d{2}-\d{2}$/.test(key) && Number(key.slice(0, 4)) >= 1900 && Number(key.slice(0, 4)) <= 2200 && dateKey(dateObject(key)) === key;
+  }
+  function validTime(t) {
+    return typeof t === "string" && /^([01]\d|2[0-3]):[0-5]\d$/.test(t);
+  }
+  function addDays(key, n) {
+    const d = dateObject(key);
+    d.setDate(d.getDate() + n);
+    return dateKey(d);
+  }
+  function monthStart(key) {
+    const d = dateObject(key);
+    d.setDate(1);
+    return dateKey(d);
+  }
+  function weekStart(key) {
+    const d = dateObject(key);
+    return addDays(key, -((d.getDay() + 6) % 7));
+  }
+  function shiftRange(key, mode, n) {
+    if (mode === "week") return addDays(key, n * 7);
+    const d = dateObject(monthStart(key));
+    d.setMonth(d.getMonth() + n);
+    return dateKey(d);
+  }
+  function periodDates(key, mode) {
+    const start = mode === "week" ? weekStart(key) : monthStart(key);
+    const d = dateObject(start);
+    const length = mode === "week" ? 7 : new Date(d.getFullYear(), d.getMonth() + 1, 0, 12).getDate();
+    return Array.from({ length }, (_, i) => addDays(start, i));
+  }
+  function validWeight(n) {
+    return typeof n === "number" && Number.isFinite(n) && n > 0 && n <= 1e3 && Math.abs(n * 100 - Math.round(n * 100)) < 1e-6;
+  }
+  function parseWeight(text) {
+    const s = String(text).trim();
+    if (!/^\d+(?:[.,]\d{1,2})?$/.test(s)) throw Error("请输入有效公斤数，最多保留两位小数。");
+    const n = Number(s.replace(",", "."));
+    if (!validWeight(n)) throw Error("体重须大于 0，且不超过 1000 kg。");
+    return n;
+  }
+  function fmt(n) {
+    return typeof n === "number" ? n.toLocaleString("zh-CN", { minimumFractionDigits: 1, maximumFractionDigits: 2, useGrouping: false }) : "—";
+  }
+  function uid() {
+    return typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : "q-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
+  }
+  function referenceWeight(state2, until = dateKey()) {
+    const days = Object.keys(state2.weights).filter((d) => d <= until).sort().reverse();
+    for (const slot of ["am", "pm"]) for (const day of days) if (state2.weights[day][slot]) return { date: day, slot, value: state2.weights[day][slot].value };
+    return null;
+  }
+  function dailyWorkouts(state2, day) {
+    return state2.workouts.filter((w) => w.date === day).slice().sort((a, b) => a.time.localeCompare(b.time) || a.id.localeCompare(b.id));
+  }
+  function contiguousRuns(days, weights, slot) {
+    var _a2, _b;
+    const runs = [];
+    let run = [];
+    for (const [index, day] of days.entries()) {
+      const value = (_b = (_a2 = weights[day]) == null ? void 0 : _a2[slot]) == null ? void 0 : _b.value;
+      if (typeof value === "number") run.push({ index, day, value });
+      else if (run.length) {
+        runs.push(run);
+        run = [];
+      }
+    }
+    if (run.length) runs.push(run);
+    return runs;
+  }
+  function periodStats(state2, days) {
+    const records = days.filter((d) => {
+      var _a2, _b;
+      return ((_a2 = state2.weights[d]) == null ? void 0 : _a2.am) || ((_b = state2.weights[d]) == null ? void 0 : _b.pm);
+    }), am = days.flatMap((d) => {
+      var _a2;
+      return ((_a2 = state2.weights[d]) == null ? void 0 : _a2.am) ? [state2.weights[d].am.value] : [];
+    }), set = new Set(days);
+    return { recordDays: records.length, workoutDays: new Set(state2.workouts.filter((w) => set.has(w.date)).map((w) => w.date)).size, amChange: am.length >= 2 ? Math.round((am.at(-1) - am[0]) * 100) / 100 : null };
+  }
+  function plain(o) {
+    return o !== null && typeof o === "object" && !Array.isArray(o);
+  }
+  function name(value, label = "运动名称") {
+    if (typeof value !== "string" || !value.trim() || value.trim().length > 24) throw Error(label + "须为 1–24 个字符。");
+    return value.trim();
+  }
+  function ident(v) {
+    if (typeof v !== "string" || !v || v.length > 100) throw Error("备份中的记录编号无效。");
+    return v;
+  }
+  function normalizeState(raw, { backup = false } = {}) {
+    if (!plain(raw) || raw.schemaVersion !== 1) throw Error("不支持此数据版本，请使用轻记导出的备份。");
+    const out = freshState();
+    if (raw.goal !== null && !validWeight(raw.goal)) throw Error("目标体重数据无效。");
+    out.goal = raw.goal;
+    if (!plain(raw.weights) || Object.keys(raw.weights).length > 5e4) throw Error("体重记录格式不正确。");
+    out.weights = {};
+    for (const [day, slots] of Object.entries(raw.weights)) {
+      if (!validDate(day) || !plain(slots)) throw Error("体重记录中的日期无效。");
+      const record = {};
+      for (const slot of ["am", "pm"]) if (slots[slot] != null) {
+        const item = slots[slot];
+        if (!plain(item) || !validWeight(item.value)) throw Error("体重记录中的公斤数无效。");
+        record[slot] = { value: item.value, updatedAt: typeof item.updatedAt === "string" ? item.updatedAt : "" };
+      }
+      if (record.am || record.pm) out.weights[day] = record;
+    }
+    if (!Array.isArray(raw.types) || raw.types.length > 200) throw Error("运动种类格式不正确。");
+    const ids = /* @__PURE__ */ new Set(), names = /* @__PURE__ */ new Set();
+    out.types = raw.types.map((t) => {
+      if (!plain(t)) throw Error("运动种类格式不正确。");
+      const id = ident(t.id), n = name(t.name);
+      if (ids.has(id) || names.has(n.toLocaleLowerCase())) throw Error("运动种类不能重复。");
+      ids.add(id);
+      names.add(n.toLocaleLowerCase());
+      return { id, name: n };
+    });
+    if (!Array.isArray(raw.workouts) || raw.workouts.length > 1e5) throw Error("运动记录格式不正确。");
+    const eventIds = /* @__PURE__ */ new Set();
+    out.workouts = raw.workouts.map((w) => {
+      if (!plain(w) || !validDate(w.date) || !validTime(w.time)) throw Error("运动记录中的日期或时间无效。");
+      const id = ident(w.id);
+      if (eventIds.has(id)) throw Error("运动记录编号重复。");
+      eventIds.add(id);
+      return { id, typeId: ident(w.typeId), typeName: name(w.typeName), date: w.date, time: w.time, createdAt: typeof w.createdAt === "string" ? w.createdAt : "", updatedAt: typeof w.updatedAt === "string" ? w.updatedAt : "" };
+    });
+    if (!backup) {
+      const t = raw.theme;
+      if (t != null) {
+        if (!plain(t) || !THEMES.includes(t.preset) || typeof t.css !== "string" || t.css.length > 5e5) throw Error("美化数据格式不正确。");
+        out.theme = { preset: t.preset, css: t.css };
+      }
+    }
+    out.updatedAt = typeof raw.updatedAt === "string" ? raw.updatedAt : null;
+    return out;
+  }
+  function exportBackup(state2) {
+    const { theme, ...data } = clone(state2);
+    return { format: "qingji.backup", version: 1, exportedAt: (/* @__PURE__ */ new Date()).toISOString(), data };
+  }
+  function parseBackup(text) {
+    if (text.length > 8 * 1024 * 1024) throw Error("备份文件过大。");
+    let doc;
+    try {
+      doc = JSON.parse(text.replace(/^\uFEFF/, ""));
+    } catch (_) {
+      throw Error("文件不是有效的 JSON 备份。");
+    }
+    if (doc.format !== "qingji.backup" || doc.version !== 1) throw Error("请选择轻记导出的 JSON 备份。");
+    return normalizeState(doc.data, { backup: true });
+  }
+  function mergeBackup(current, incoming) {
+    const next = clone(current), idMap = /* @__PURE__ */ new Map(), ids = new Set(next.types.map((t) => t.id));
+    for (const t of incoming.types) {
+      const existing = next.types.find((x) => x.name.toLocaleLowerCase() === t.name.toLocaleLowerCase());
+      if (existing) {
+        idMap.set(t.id, existing.id);
+        continue;
+      }
+      let id = t.id;
+      if (ids.has(id)) id = uid();
+      ids.add(id);
+      next.types.push({ id, name: t.name });
+      idMap.set(t.id, id);
+    }
+    for (const [day, slots] of Object.entries(incoming.weights)) next.weights[day] = { ...next.weights[day], ...clone(slots) };
+    const events = new Map(next.workouts.map((w) => [w.id, w]));
+    for (const w of incoming.workouts) {
+      const mapped = { ...w, typeId: idMap.get(w.typeId) || w.typeId };
+      events.set(w.id, mapped);
+    }
+    next.workouts = [...events.values()];
+    next.goal = incoming.goal;
+    return next;
+  }
+
+  // work/qingji-app/src/storage.mjs
+  var COLLECTION = "qingji_profile";
+  var KEY = "main";
+  var FALLBACK = "qingji.standalone.v1";
+  function makeStorage(api2) {
+    let rowId = null, mode = (api2 == null ? void 0 : api2.db) ? "host" : "standalone";
+    return {
+      mode,
+      async load() {
+        if (mode === "host") {
+          const rows = await api2.db.list(COLLECTION, { limit: 100 });
+          if (!Array.isArray(rows)) throw Error("小手机存储接口返回的数据不正确。");
+          const saved = rows.filter((r) => r && r.key === KEY).sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")))[0];
+          if (!saved) return freshState();
+          rowId = saved.id;
+          return normalizeState(saved.payload);
+        }
+        const raw = localStorage.getItem(FALLBACK);
+        return raw ? normalizeState(JSON.parse(raw)) : freshState();
+      },
+      async save(state2) {
+        if (mode === "host") {
+          const data = { key: KEY, payload: state2 };
+          if (rowId) {
+            const updated = await api2.db.update(COLLECTION, rowId, data);
+            if (!updated) throw Error("未能更新存档，请重新打开 App 后重试。");
+          } else {
+            const created = await api2.db.create(COLLECTION, data);
+            if (!(created == null ? void 0 : created.id)) throw Error("小手机未返回存档编号。");
+            rowId = created.id;
+          }
+        } else localStorage.setItem(FALLBACK, JSON.stringify(state2));
+      }
+    };
+  }
+
+  // work/qingji-app/src/css-scope.mjs
+  var ROOT = "#qingji";
+  var GATE = ":where(#qingji,#qingji *)";
+  var MAX_CSS = 5e5;
+  function delimiter(s, start, stops) {
+    let quote = "", paren = 0, bracket = 0;
+    for (let i = start; i < s.length; i++) {
+      const c = s[i];
+      if (quote) {
+        if (c === "\\") i++;
+        else if (c === quote) quote = "";
+        continue;
+      }
+      if (c === "/" && s[i + 1] === "*") {
+        const end = s.indexOf("*/", i + 2);
+        if (end < 0) throw Error("CSS 注释缺少 */");
+        i = end + 1;
+        continue;
+      }
+      if (c === '"' || c === "'") {
+        quote = c;
+        continue;
+      }
+      if (c === "\\") {
+        i++;
+        continue;
+      }
+      if (c === "(") paren++;
+      if (c === ")") paren--;
+      if (c === "[") bracket++;
+      if (c === "]") bracket--;
+      if (paren < 0 || bracket < 0) throw Error("CSS 括号不匹配");
+      if (!paren && !bracket && stops.includes(c)) return i;
+    }
+    if (quote || paren || bracket) throw Error("CSS 引号或括号没有闭合");
+    return -1;
+  }
+  function blockEnd(s, start) {
+    let depth = 1, i = start + 1;
+    while (i < s.length) {
+      const n = delimiter(s, i, "{}");
+      if (n < 0) break;
+      if (s[n] === "{") depth++;
+      else depth--;
+      if (!depth) return n;
+      i = n + 1;
+    }
+    throw Error("CSS 缺少闭合的 }");
+  }
+  function selectorList(text) {
+    const out = [];
+    let start = 0;
+    for (; ; ) {
+      const k = delimiter(text, start, ",");
+      if (k < 0) {
+        out.push(text.slice(start));
+        break;
+      }
+      out.push(text.slice(start, k));
+      start = k + 1;
+    }
+    return out;
+  }
+  function scopedSelector(text) {
+    let s = text.replace(/\/\*[\s\S]*?\*\//g, "").trim();
+    if (!s) throw Error("CSS 选择器不能为空");
+    s = s.replace(/^(?:html\s+body|html|body|:root)(?=$|[\s.#[:>+~])/i, ROOT);
+    let quote = "", depth = 0, bracket = 0, at = s.length;
+    for (let i = 0; i < s.length; i++) {
+      const c = s[i];
+      if (quote) {
+        if (c === "\\") i++;
+        else if (c === quote) quote = "";
+        continue;
+      }
+      if (c === '"' || c === "'") {
+        quote = c;
+        continue;
+      }
+      if (c === "\\") {
+        i++;
+        continue;
+      }
+      if (c === "(") depth++;
+      if (c === ")") depth--;
+      if (c === "[") bracket++;
+      if (c === "]") bracket--;
+      if (!depth && !bracket && c === ":" && (s[i + 1] === ":" || /^:(before|after|first-letter|first-line)\b/.test(s.slice(i)))) {
+        at = i;
+        break;
+      }
+    }
+    const result = s.slice(0, at) + GATE + s.slice(at);
+    try {
+      document.createDocumentFragment().querySelector(result);
+    } catch (_) {
+      throw Error("无法识别 CSS 选择器：" + s.slice(0, 80));
+    }
+    return result;
+  }
+  function scopeCSS(raw) {
+    if (raw.length > MAX_CSS) throw Error("CSS 过长，请控制在 50 万字符以内");
+    const animations = /* @__PURE__ */ new Map();
+    function walk(s) {
+      let out = "", i = 0;
+      while (i < s.length) {
+        if (/\s/.test(s[i])) {
+          out += s[i++];
+          continue;
+        }
+        if (s[i] === "/" && s[i + 1] === "*") {
+          const k = s.indexOf("*/", i + 2);
+          if (k < 0) throw Error("CSS 注释缺少 */");
+          out += s.slice(i, k + 2);
+          i = k + 2;
+          continue;
+        }
+        const stop = delimiter(s, i, "{};");
+        if (stop < 0) {
+          if (s.slice(i).trim()) throw Error("CSS 末尾缺少 { }");
+          break;
+        }
+        const head = s.slice(i, stop).trim();
+        if (!head) throw Error("CSS 缺少选择器");
+        if (s[stop] === "}") throw Error("CSS 多出了一个 }");
+        const at = head.match(/^@([\w-]+)/), name2 = at ? at[1].toLowerCase() : "";
+        if (s[stop] === ";") {
+          if (name2 === "charset") {
+            i = stop + 1;
+            continue;
+          }
+          throw Error(name2 === "import" ? "请粘贴实际 CSS 内容，独立美化不支持 @import。" : "此处需要完整的 CSS 规则。");
+        }
+        const end = blockEnd(s, stop), body = s.slice(stop + 1, end);
+        if (!at) {
+          if (delimiter(body, 0, "{}") >= 0) throw Error("请展开嵌套 CSS，使用完整选择器。");
+          out += selectorList(head).map(scopedSelector).join(",") + "{" + body + "}";
+        } else if (["media", "supports", "container", "layer", "starting-style"].includes(name2)) out += head + "{" + walk(body) + "}";
+        else if (name2 === "font-face") out += head + "{" + body + "}";
+        else if (name2 === "keyframes" || name2 === "-webkit-keyframes") {
+          const key = head.replace(/^@[\w-]+\s+/, "").trim();
+          if (!/^[\w-]+$/.test(key)) throw Error("动画名称只能使用字母、数字、横线和下划线。");
+          const scoped = "qingji-user-" + key;
+          animations.set(key, scoped);
+          out += "@" + name2 + " " + scoped + "{" + body + "}";
+        } else throw Error("独立美化暂不支持 @" + name2 + "，请改用普通 CSS 或 @media。");
+        i = end + 1;
+      }
+      return out;
+    }
+    let css = walk(String(raw || ""));
+    if (animations.size) css = css.replace(/((?:-webkit-)?animation(?:-name)?\s*:)([^;{}]+)/gi, (_, p, v) => p + v.replace(/[\w-]+/g, (w) => animations.get(w) || w));
+    return css;
+  }
+
+  // work/qingji-app/src/app.js
+  var ICONS = { sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>', moon: '<path d="M20.5 13.1A8.8 8.8 0 0 1 10.9 3.5 8.8 8.8 0 1 0 20.5 13.1Z"/>', chart: '<path d="M4 4v16h17M7 15l4-5 4 3 6-8"/>', settings: '<path d="m9 3-.6 2.4-2 .9L4 5.6 2.5 8.2l1.8 1.7-.2 2.2L2.5 14 4 16.6l2.5-.5 1.9 1L9 20h3l.7-2.8 2-1 2.4.4 1.5-2.6-1.7-1.8.1-2.2 1.7-1.8-1.5-2.6-2.4.7-2-1L12 3Z"/><circle cx="10.6" cy="11.5" r="3"/>', palette: '<path d="M12 3a9 9 0 1 0 0 18h1.2a2.2 2.2 0 0 0 1.6-3.7 1.4 1.4 0 0 1 1-2.4h1.5a3.7 3.7 0 0 0 3.7-3.7A8.5 8.5 0 0 0 12 3Z"/><circle cx="7.5" cy="10" r=".7"/><circle cx="10" cy="6.8" r=".7"/><circle cx="14.3" cy="7" r=".7"/><circle cx="17" cy="10" r=".7"/>', left: '<path d="m14.5 5-7 7 7 7"/>', right: '<path d="m9.5 5 7 7-7 7"/>', plus: '<path d="M12 5v14M5 12h14"/>', edit: '<path d="m15.5 4.5 4 4M4 20l4.4-1 12-12a2.8 2.8 0 0 0-4-4l-12 12L4 20Z"/>', incline: '<path d="M3 19h18L16 8l-4 7-3-4-6 8Z"/><path d="m13.5 12.4 2.5 1.2 1.4-1.5"/>', swim: '<path d="M3 19c2-2 4 2 6 0s4 2 6 0 4 2 6 0M5 15l5-5 4 4 3-1M10 10l3-4 3 2"/><circle cx="18" cy="6" r="2"/>', training: '<path d="M8 5v14M4 8v8m12-11v14m4-11v8M8 12h8M2 10v4m20-4v4"/>', motion: '<path d="m6 17 4-5 4 3 4-7M4 20h16"/>', close: '<path d="m6 6 12 12M6 18 18 6"/>', download: '<path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>', upload: '<path d="M12 16V4m-5 5 5-5 5 5M4 16v5h16v-5"/>', check: '<path d="m5 12 4 4L19 6"/>', leaf: '<path d="M20 4c-8-1-16 2-15 10 7 4 16-2 15-10ZM4 21l11-11"/>', calendar: '<rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4m8-4v4M4 10h16m-11 4h.1m5 0h.1M9 17h.1m5 0h.1"/>' };
+  var icon = (name2) => '<svg class="q-icon" viewBox="0 0 24 24" aria-hidden="true">' + (ICONS[name2] || ICONS.motion) + "</svg>";
+  var esc = (s) => String(s != null ? s : "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  var btnIcon = (name2, action, label) => '<button type="button" class="q-icon-btn" data-action="' + action + '" aria-label="' + esc(label) + '">' + icon(name2) + "</button>";
+  var api = window.AiPhone || window.AiPhoneApp;
+  var storage = makeStorage(api);
+  var root = document.getElementById("qingji");
+  var main = document.getElementById("q-main");
+  var saveState = document.getElementById("q-save-state");
+  var modalRoot = document.getElementById("q-modal-root");
+  var themeLaunch = document.getElementById("q-theme-launch");
+  var state = freshState();
+  var loaded = false;
+  var busy = false;
+  var tab = "today";
+  var selectedDate = dateKey();
+  var rangeMode = "week";
+  var trendAnchor = selectedDate;
+  var pickedDate = selectedDate;
+  var lastToday = selectedDate;
+  var toastTimer = null;
+  var themeEditor = null;
+  var sheets = [];
+  var draftCSS = null;
+  var draftPreset = null;
+  function renderIcons(where = document) {
+    for (const node of where.querySelectorAll("[data-icon]")) node.innerHTML = icon(node.dataset.icon);
+  }
+  function typeIcon(id) {
+    return ["incline", "swim", "training"].includes(id) ? id : "motion";
+  }
+  function dayLabel(day, full = false) {
+    const d = dateObject(day);
+    return (full ? d.getFullYear() + " 年 " : "") + (d.getMonth() + 1) + " 月 " + d.getDate() + " 日";
+  }
+  function weekday(day) {
+    return "周" + "日一二三四五六"[dateObject(day).getDay()];
+  }
+  function toast(text) {
+    const box = document.getElementById("q-toast");
+    box.textContent = text;
+    box.dataset.show = "true";
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => box.dataset.show = "false", 2800);
+  }
+  function lockUI() {
+    for (const button of document.querySelectorAll("[data-write]")) button.disabled = busy || !loaded;
+  }
+  function status(text, error = false) {
+    saveState.textContent = text;
+    saveState.dataset.error = error ? "true" : "false";
+  }
+  function applyTheme() {
+    root.dataset.theme = state.theme.preset;
+    try {
+      document.getElementById("q-custom-style").textContent = scopeCSS(state.theme.css);
+    } catch (_) {
+      document.getElementById("q-custom-style").textContent = "";
+      toast("美化 CSS 需要修正，已临时显示基础样式。");
+    }
+  }
+  async function commit(change) {
+    if (!loaded || busy) return false;
+    let next;
+    try {
+      next = clone(state);
+      change(next);
+      next.updatedAt = (/* @__PURE__ */ new Date()).toISOString();
+      next = normalizeState(next);
+    } catch (e) {
+      toast(e.message);
+      return false;
+    }
+    busy = true;
+    lockUI();
+    status("保存中");
+    try {
+      await storage.save(next);
+      state = next;
+      applyTheme();
+      render();
+      status("已保存");
+      return true;
+    } catch (e) {
+      status("保存失败", true);
+      toast("保存失败：" + (e.message || "请稍后重试"));
+      return false;
+    } finally {
+      busy = false;
+      lockUI();
+    }
+  }
+  function render() {
+    if (!loaded) return;
+    for (const b of document.querySelectorAll("[data-tab]")) {
+      if (b.dataset.tab === tab) b.setAttribute("aria-current", "page");
+      else b.removeAttribute("aria-current");
+    }
+    main.innerHTML = tab === "today" ? todayPage() : tab === "trend" ? trendPage() : settingsPage();
+    renderIcons(main);
+    lockUI();
+  }
+  function todayPage() {
+    const ref = referenceWeight(state, selectedDate), events = dailyWorkouts(state, selectedDate), target = state.goal;
+    let gap = "先设置一个目标", gapTitle = "目标差距";
+    if (target !== null) {
+      if (!ref) gap = "记录体重后查看";
+      else {
+        const d = Math.round((ref.value - target) * 100) / 100;
+        gap = d > 0 ? "还差 " + fmt(d) + " kg" : d < 0 ? "低于目标 " + fmt(-d) + " kg" : "达到目标值";
+      }
+    }
+    const refText = ref ? ref.slot === "am" ? "晨间体重" : "晚间体重" : "最近晨重";
+    const refNote = ref ? ref.slot === "am" ? dayLabel(ref.date) + " · 晨重" : "暂无晨重，暂用 " + dayLabel(ref.date) + " 晚重" : "从第一笔晨重开始";
+    return '<section class="q-page" data-view="today"><div class="q-date-bar"><div class="q-date-group">' + btnIcon("left", "day-prev", "前一天") + '<div><input id="q-day" class="q-date-input" type="date" aria-label="记录日期" value="' + selectedDate + '" min="1900-01-01" max="2200-12-31"><div class="q-weekday">' + weekday(selectedDate) + (selectedDate === dateKey() ? " · 今天" : "") + '</div></div></div><div class="q-date-group">' + (selectedDate !== dateKey() ? '<button class="q-text-btn" type="button" data-action="day-today">今天</button>' : "") + btnIcon("right", "day-next", "后一天") + '</div></div><article class="q-card q-hero"><div class="q-hero-top"><div><div class="q-eyebrow">' + refText + '</div><div class="q-hero-value" data-testid="reference-weight">' + (ref ? fmt(ref.value) : "—") + '<span class="q-unit">kg</span></div><div class="q-hero-date">' + refNote + '</div></div><div class="q-goal-side"><div class="q-eyebrow">目标体重</div><div class="q-goal-value">' + (target !== null ? fmt(target) + '<span class="q-unit">kg</span>' : "未设置") + '</div><button type="button" class="q-goal-link" data-action="goal">' + (target !== null ? "修改目标" : "设置目标") + icon("edit") + '</button></div></div><div class="q-goal-gap"><span>' + gapTitle + '</span><strong data-testid="goal-gap">' + gap + '</strong></div></article><div class="q-weights">' + ["am", "pm"].map((slot) => {
+      var _a2;
+      const item = (_a2 = state.weights[selectedDate]) == null ? void 0 : _a2[slot], label = slot === "am" ? "晨间体重" : "晚间体重";
+      return '<button type="button" data-write class="q-weight q-card" data-action="weight" data-slot="' + slot + '" aria-label="' + (item ? "修改" : "记录") + label + '"><div class="q-weight-head"><span>' + label + "</span>" + icon(slot === "am" ? "sun" : "moon") + '</div><div class="q-weight-number">' + (item ? fmt(item.value) : "—") + '<span class="q-unit">kg</span></div><div class="q-weight-note"><span>' + (item ? "点击修改" : "点击记录") + "</span>" + icon("plus") + "</div></button>";
+    }).join("") + '</div><div class="q-section-title"><h2>' + (selectedDate === dateKey() ? "今天的运动" : "当天的运动") + "</h2><span>" + (events.length ? events.length + " 次记录" : "尚未记录") + '</span></div><div class="q-workout-types">' + state.types.map((t) => {
+      const count = events.filter((w) => w.typeId === t.id).length;
+      return '<button type="button" data-write class="q-workout-chip" data-action="workout-add" data-type="' + esc(t.id) + '" aria-label="记录' + esc(t.name) + '">' + icon(typeIcon(t.id)) + "<span>" + esc(t.name) + "</span>" + (count ? "<em>×" + count + "</em>" : "") + "</button>";
+    }).join("") + '<button type="button" class="q-workout-add" data-write data-action="type-add" aria-label="添加运动种类">' + icon("plus") + "</button></div>" + (events.length ? '<div class="q-record-list q-card">' + events.map((w) => '<button type="button" class="q-workout-row" data-write data-action="workout-edit" data-id="' + esc(w.id) + '" aria-label="编辑' + esc(w.typeName) + " " + w.time + '"><span class="q-record-name">' + icon(typeIcon(w.typeId)) + "<span>" + esc(w.typeName) + '</span></span><span class="q-record-time">' + w.time + icon("right") + "</span></button>").join("") + "</div>" : '<div class="q-empty">' + icon("leaf") + "运动后点一下，就记在这里。<br>时间可以修改，也可以补记。</div>") + (storage.mode === "standalone" ? '<p class="q-hint">当前为浏览器独立预览，记录保存在此浏览器。安装到小手机后使用 App 独立存档。</p>' : "") + "</section>";
+  }
+  function renderChart(days) {
+    const W = 640, H = 330, L = 60, R = 24, T = 28, B = 68, pw = W - L - R, ph = H - T - B, n = days.length;
+    const x = (i) => L + pw * i / Math.max(1, n - 1), measurements = days.flatMap((day) => ["am", "pm"].flatMap((slot) => {
+      var _a2;
+      return ((_a2 = state.weights[day]) == null ? void 0 : _a2[slot]) ? [state.weights[day][slot].value] : [];
+    }));
+    const values = measurements.slice();
+    if (state.goal !== null) values.push(state.goal);
+    let low = 0, high = 1, ticks = [];
+    if (values.length) {
+      const min = Math.min(...values), max = Math.max(...values), pad = Math.max((max - min) * 0.14, 0.4), raw = (max - min + pad * 2) / 4, base = Math.pow(10, Math.floor(Math.log10(raw))), step = [1, 2, 2.5, 5, 10].map((s2) => s2 * base).find((s2) => s2 >= raw) || base * 10;
+      low = Math.floor((min - pad) / step) * step;
+      high = Math.ceil((max + pad) / step) * step;
+      for (let v = low; v <= high + step * 1e-3; v += step) ticks.push(Math.round(v * 1e3) / 1e3);
+      if (ticks.length > 8) ticks = ticks.filter((_, i) => i % 2 === 0);
+    }
+    const y = (v) => T + (high - v) / (high - low) * ph;
+    let s = '<svg class="q-chart" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' + (rangeMode === "week" ? "周" : "月") + '体重趋势，晨重和晚重分开显示，空缺日期不连线">';
+    if (values.length) {
+      for (const v of ticks) s += '<line class="q-grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '"/><text x="' + (L - 12) + '" y="' + (y(v) + 5) + '" text-anchor="end">' + fmt(v) + "</text>";
+    } else for (let i = 0; i < 4; i++) s += '<line class="q-grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + (T + i * ph / 3) + '" y2="' + (T + i * ph / 3) + '"/>';
+    if (state.goal !== null) {
+      s += '<line data-testid="goal-line" class="q-goal-line" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(state.goal) + '" y2="' + y(state.goal) + '"/><text x="' + (W - R) + '" y="' + (y(state.goal) - 10) + '" text-anchor="end" style="fill:var(--q-goal)">目标 ' + fmt(state.goal) + "</text>";
+    }
+    const picked = days.indexOf(pickedDate);
+    if (picked >= 0) s += '<line class="q-picked" x1="' + x(picked) + '" x2="' + x(picked) + '" y1="' + T + '" y2="' + (T + ph) + '"/>';
+    for (const slot of ["am", "pm"]) for (const run of contiguousRuns(days, state.weights, slot)) {
+      if (run.length > 1) s += '<path class="q-series ' + slot + '" data-series="' + slot + '" d="' + run.map((p, i) => (i ? "L" : "M") + x(p.index).toFixed(2) + " " + y(p.value).toFixed(2)).join(" ") + '"/>';
+      for (const p of run) s += '<circle data-point-date="' + p.day + '" data-point-slot="' + slot + '" class="q-dot-' + slot + '" cx="' + x(p.index) + '" cy="' + y(p.value) + '" r="4.5"/>';
+    }
+    const markerDays = new Set(state.workouts.map((w) => w.date));
+    for (const [i, day] of days.entries()) {
+      const label = rangeMode === "week" || i === 0 || i === n - 1 || (i + 1) % 5 === 0 && n - 1 - i >= 3;
+      if (label) s += '<text class="q-tick" x="' + x(i) + '" y="' + (T + ph + 26) + '" text-anchor="middle">' + (rangeMode === "week" ? Number(day.slice(5, 7)) + "/" + Number(day.slice(8)) : Number(day.slice(8))) + "</text>";
+      if (markerDays.has(day)) s += '<circle class="q-workout-dot" data-workout-marker="' + day + '" cx="' + x(i) + '" cy="' + (T + ph + 44) + '" r="3.5"/>';
+      const half = pw / (n - 1) / 2;
+      s += '<rect class="q-hit" data-action="chart-pick" data-date="' + day + '" x="' + Math.max(L - 12, x(i) - half) + '" y="' + T + '" width="' + (i === 0 || i === n - 1 ? half + 12 : half * 2) + '" height="' + (ph + 53) + '" role="button" tabindex="0" aria-label="查看' + day + '的记录"><title>' + day + "</title></rect>";
+    }
+    if (!measurements.length) s += '<text x="' + W / 2 + '" y="' + (T + ph / 2 - 10) + '" text-anchor="middle" style="font-size:18px">' + (state.goal !== null ? "目标已设定，等待第一笔体重" : "记录第一笔体重，趋势从这里开始") + "</text>";
+    return s + "</svg>";
+  }
+  function trendPage() {
+    var _a2, _b;
+    const days = periodDates(trendAnchor, rangeMode);
+    if (!days.includes(pickedDate)) pickedDate = days.includes(selectedDate) ? selectedDate : days.at(-1);
+    const stats = periodStats(state, days), w = state.weights[pickedDate] || {}, events = dailyWorkouts(state, pickedDate), month = dateObject(days[0]);
+    const title = rangeMode === "week" ? Number(days[0].slice(5, 7)) + "." + Number(days[0].slice(8)) + " — " + Number(days.at(-1).slice(5, 7)) + "." + Number(days.at(-1).slice(8)) : month.getFullYear() + " 年 " + (month.getMonth() + 1) + " 月";
+    const change = stats.amChange === null ? "—" : (stats.amChange > 0 ? "+" : stats.amChange < 0 ? "−" : "") + fmt(Math.abs(stats.amChange));
+    return '<section class="q-page" data-view="trend"><div class="q-page-head"><h2>一点点，看得见</h2><div class="q-segment"><button type="button" data-action="range-week" aria-pressed="' + (rangeMode === "week") + '">周</button><button type="button" data-action="range-month" aria-pressed="' + (rangeMode === "month") + '">月</button></div></div><div class="q-period">' + btnIcon("left", "range-prev", "上一" + (rangeMode === "week" ? "周" : "个月")) + '<div class="q-period-title">' + title + "<small>" + (rangeMode === "week" ? month.getFullYear() + " · 周一至周日" : "自然月 · " + days.length + " 天") + "</small></div>" + btnIcon("right", "range-next", "下一" + (rangeMode === "week" ? "周" : "个月")) + '</div><article class="q-card q-chart-card"><div class="q-legend"><span><i class="q-line-key"></i>晨重</span><span><i class="q-line-key pm"></i>晚重</span>' + (state.goal !== null ? '<span><i class="q-line-key goal"></i>目标</span>' : "") + '<span><i class="q-work-key"></i>运动</span></div>' + renderChart(days) + '<div class="q-chart-note">点击日期查看当天记录 · 单位 kg</div></article><div class="q-stats"><div class="q-card q-stat"><strong>' + change + '</strong><span>晨重变化 / kg</span></div><div class="q-card q-stat"><strong>' + stats.recordDays + '</strong><span>记录天数</span></div><div class="q-card q-stat"><strong>' + stats.workoutDays + '</strong><span>运动天数</span></div></div><article class="q-card q-detail"><div class="q-detail-head"><span>' + dayLabel(pickedDate) + " · " + weekday(pickedDate) + '</span><button type="button" class="q-text-btn" data-action="chart-edit">编辑当天</button></div><div class="q-detail-weights"><div><label>晨间体重</label><strong>' + fmt((_a2 = w.am) == null ? void 0 : _a2.value) + '</strong><span class="q-unit">kg</span></div><div><label>晚间体重</label><strong>' + fmt((_b = w.pm) == null ? void 0 : _b.value) + '</strong><span class="q-unit">kg</span></div></div><div class="q-detail-motion">' + (events.length ? events.map((e) => esc(e.typeName) + " " + e.time).join("　·　") : "当天尚无运动记录") + '</div></article><p class="q-hint">晨重与晚重分别比较。未记录的日期留空，不补零，也不跨空缺日期连线。</p></section>';
+  }
+  function settingsPage() {
+    return '<section class="q-page" data-view="settings"><div class="q-page-head"><h2>按自己的节奏</h2><span class="q-eyebrow">PREFERENCES</span></div><div class="q-settings-card q-card"><button type="button" class="q-setting-row" data-action="goal"><div><strong>目标体重</strong><small>首页默认参考最近一次晨重</small></div><span class="q-setting-value">' + (state.goal !== null ? fmt(state.goal) + " kg" : "未设置") + icon("right") + '</span></button><button type="button" class="q-setting-row" data-action="theme"><div><strong>独立美化</strong><small>主题、自定义 CSS 与样式导入导出</small></div><span class="q-setting-value">' + icon("palette") + icon("right") + '</span></button></div><div class="q-section-title"><h2>运动种类</h2><button type="button" class="q-text-btn" data-write data-action="type-add">＋ 添加种类</button></div><div class="q-settings-card q-card">' + (state.types.length ? state.types.map((t) => '<div class="q-type-row"><span class="q-type-name">' + esc(t.name) + '</span><span class="q-type-actions"><button type="button" data-write data-action="type-edit" data-id="' + esc(t.id) + '" aria-label="修改' + esc(t.name) + '种类">改名</button><button type="button" data-write data-action="type-delete" data-id="' + esc(t.id) + '" aria-label="移除' + esc(t.name) + '种类">移除</button></span></div>').join("") : '<div class="q-empty">还没有运动种类，点上方添加。</div>') + '</div><p class="q-hint">种类改名或移除后，已有运动记录仍保留当时的名称和时间。</p><div class="q-section-title"><h2>记录备份</h2><span>仅属于你的记录</span></div><div class="q-settings-card q-card"><button type="button" class="q-setting-row" data-action="backup-export"><div><strong>导出记录</strong><small>体重、运动、目标与种类，保存为 JSON</small></div><span class="q-setting-value">' + icon("download") + '</span></button><button type="button" class="q-setting-row" data-write data-action="backup-import"><div><strong>导入备份</strong><small>先核对内容，再合并到现有记录</small></div><span class="q-setting-value">' + icon("upload") + '</span></button></div><p class="q-hint">美化 CSS 在调色盘窗口中单独导出。更新 App 时，请使用应用市场的「换包」，保留原 App 存档。</p><div class="q-footer-note">轻记 · v1.0.0<br>今天的记录，也算一步。</div></section>';
+  }
+  function sheet(title, html, kind = "") {
+    clearTimeout(toastTimer);
+    document.getElementById("q-toast").dataset.show = "false";
+    const overlay = document.createElement("div");
+    overlay.className = "q-overlay";
+    const panel = document.createElement("section");
+    panel.className = "q-sheet " + kind;
+    panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-modal", "true");
+    panel.setAttribute("aria-label", title);
+    panel.innerHTML = '<div class="q-sheet-head"><h2>' + esc(title) + '</h2><button type="button" class="q-close" aria-label="关闭' + esc(title) + '">' + icon("close") + "</button></div>" + html;
+    overlay.append(panel);
+    const oldFocus = document.activeElement;
+    let closed = false;
+    const item = { overlay, panel, close() {
+      var _a2;
+      if (closed) return;
+      closed = true;
+      const index = sheets.indexOf(item);
+      if (index >= 0) sheets.splice(index, 1);
+      overlay.remove();
+      (_a2 = item.cleanup) == null ? void 0 : _a2.call(item);
+      if (!sheets.length) {
+        root.inert = false;
+        themeLaunch.inert = false;
+      } else {
+        sheets.at(-1).overlay.inert = false;
+      }
+      if (oldFocus == null ? void 0 : oldFocus.isConnected) oldFocus.focus();
+    } };
+    if (sheets.length) sheets.at(-1).overlay.inert = true;
+    sheets.push(item);
+    root.inert = true;
+    themeLaunch.inert = true;
+    modalRoot.append(overlay);
+    panel.querySelector(".q-close").onclick = item.close;
+    overlay.onclick = (e) => {
+      if (e.target === overlay) item.close();
+    };
+    lockUI();
+    panel.querySelector(".q-close").focus();
+    return item;
+  }
+  function field(label, input) {
+    return '<label class="q-field"><span>' + label + "</span>" + input + "</label>";
+  }
+  function errorNode(form, text) {
+    form.querySelector(".q-form-error").textContent = text;
+  }
+  function formTail(deleteLabel) {
+    return '<div class="q-form-error" role="alert"></div><div class="q-form-actions">' + (deleteLabel ? '<button type="button" class="q-btn q-btn-delete" data-write data-delete>' + deleteLabel + "</button>" : "") + '<button type="button" class="q-btn" data-cancel>取消</button><button type="button" class="q-btn q-btn-primary" data-write data-save>保存</button></div>';
+  }
+  function bindSave(form) {
+    const save = form.querySelector("[data-save]");
+    save.onclick = () => {
+      var _a2;
+      return (_a2 = form.onsubmit) == null ? void 0 : _a2.call(form, { preventDefault() {
+      } });
+    };
+    form.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && e.target.tagName === "INPUT") {
+        e.preventDefault();
+        if (!save.disabled) save.click();
+      }
+    });
+  }
+  function confirmSheet(title, text, onConfirm) {
+    const s = sheet(title, '<p class="q-sheet-note">' + esc(text) + '</p><div class="q-form-actions"><button class="q-btn" type="button" data-cancel>取消</button><button class="q-btn q-btn-primary" type="button" data-confirm data-write>确认</button></div>');
+    s.panel.querySelector("[data-cancel]").onclick = s.close;
+    s.panel.querySelector("[data-confirm]").onclick = async () => {
+      if (await onConfirm()) s.close();
+    };
+    return s;
+  }
+  function weightSheet(slot) {
+    var _a2;
+    const oldDate = selectedDate, existing = (_a2 = state.weights[oldDate]) == null ? void 0 : _a2[slot], label = slot === "am" ? "晨间体重" : "晚间体重";
+    const s = sheet(label, '<form class="q-form">' + field("公斤 · kg", '<input name="value" class="q-input q-number-input" aria-label="' + label + '公斤数" type="text" inputmode="decimal" autocomplete="off" maxlength="9" placeholder="例如 67.5" value="' + (existing ? existing.value : "") + '" required>') + field("记录日期", '<input name="date" type="date" class="q-input" value="' + oldDate + '" min="1900-01-01" max="2200-12-31" required>') + '<p class="q-sheet-note">每天分别保留一条晨重、一条晚重。同一天再次保存会更新该条记录。</p>' + formTail(existing ? "删除记录" : "") + "</form>");
+    const f = s.panel.querySelector("form");
+    bindSave(f);
+    f.querySelector("[data-cancel]").onclick = s.close;
+    f.onsubmit = async (e) => {
+      var _a3;
+      e.preventDefault();
+      try {
+        const value = parseWeight(f.elements.value.value), date = f.elements.date.value;
+        if (!validDate(date)) throw Error("请选择有效日期。");
+        if (date !== oldDate && ((_a3 = state.weights[date]) == null ? void 0 : _a3[slot])) throw Error("该日期已有" + label + "，请先切换到该日期修改，避免覆盖。");
+        if (await commit((next) => {
+          if (date !== oldDate && existing) {
+            delete next.weights[oldDate][slot];
+            if (!next.weights[oldDate].am && !next.weights[oldDate].pm) delete next.weights[oldDate];
+          }
+          next.weights[date] = { ...next.weights[date], [slot]: { value, updatedAt: (/* @__PURE__ */ new Date()).toISOString() } };
+        })) {
+          selectedDate = date;
+          render();
+          s.close();
+          toast("已保存" + label);
+        }
+      } catch (err) {
+        errorNode(f, err.message);
+      }
+    };
+    if (existing) f.querySelector("[data-delete]").onclick = () => confirmSheet("删除这条体重记录？", dayLabel(oldDate) + "的" + label + "将被删除。", async () => {
+      const ok = await commit((next) => {
+        delete next.weights[oldDate][slot];
+        if (!next.weights[oldDate].am && !next.weights[oldDate].pm) delete next.weights[oldDate];
+      });
+      if (ok) {
+        s.close();
+        toast("已删除体重记录");
+      }
+      return ok;
+    });
+    f.elements.value.focus();
+    f.elements.value.select();
+  }
+  function goalSheet() {
+    var _a2;
+    const s = sheet("目标体重", '<form class="q-form">' + field("公斤 · kg", '<input name="goal" class="q-input q-number-input" aria-label="目标公斤数" type="text" inputmode="decimal" autocomplete="off" maxlength="9" placeholder="填写你的目标" value="' + ((_a2 = state.goal) != null ? _a2 : "") + '" required>') + '<p class="q-sheet-note">首页优先用最近一次晨重计算差距；没有晨重时，会明确标注所参考的晚重。</p>' + formTail(state.goal !== null ? "移除目标" : "") + "</form>");
+    const f = s.panel.querySelector("form");
+    bindSave(f);
+    f.querySelector("[data-cancel]").onclick = s.close;
+    f.onsubmit = async (e) => {
+      e.preventDefault();
+      try {
+        const value = parseWeight(f.elements.goal.value);
+        if (await commit((next) => next.goal = value)) {
+          s.close();
+          toast("目标已更新");
+        }
+      } catch (err) {
+        errorNode(f, err.message);
+      }
+    };
+    if (state.goal !== null) f.querySelector("[data-delete]").onclick = async () => {
+      if (await commit((next) => next.goal = null)) s.close();
+    };
+    f.elements.goal.focus();
+    f.elements.goal.select();
+  }
+  async function addWorkout(typeId) {
+    const type = state.types.find((t) => t.id === typeId);
+    if (!type) return;
+    const now = /* @__PURE__ */ new Date(), event = { id: uid(), typeId: type.id, typeName: type.name, date: selectedDate, time: timeKey(now), createdAt: now.toISOString(), updatedAt: now.toISOString() };
+    if (await commit((next) => next.workouts.push(event))) toast("已记录 " + type.name + " · " + event.time);
+  }
+  function workoutSheet(id) {
+    const event = state.workouts.find((w) => w.id === id);
+    if (!event) return;
+    const types = state.types.some((t) => t.id === event.typeId) ? state.types : [{ id: event.typeId, name: event.typeName }, ...state.types];
+    const s = sheet("编辑运动记录", '<form class="q-form">' + field("运动种类", '<select name="type" class="q-input">' + types.map((t) => '<option value="' + esc(t.id) + '"' + (t.id === event.typeId ? " selected" : "") + ">" + esc(t.id === event.typeId ? event.typeName : t.name) + "</option>").join("") + "</select>") + '<div class="q-field-row">' + field("日期", '<input name="date" type="date" class="q-input" value="' + event.date + '" min="1900-01-01" max="2200-12-31" required>') + field("时间", '<input name="time" type="time" class="q-input" value="' + event.time + '" required>') + "</div>" + formTail("删除记录") + "</form>");
+    const f = s.panel.querySelector("form");
+    bindSave(f);
+    f.querySelector("[data-cancel]").onclick = s.close;
+    f.onsubmit = async (e) => {
+      e.preventDefault();
+      try {
+        const date = f.elements.date.value, time = f.elements.time.value, type = types.find((t) => t.id === f.elements.type.value);
+        if (!validDate(date) || !validTime(time) || !type) throw Error("请检查日期、时间和运动种类。");
+        if (await commit((next) => {
+          const w = next.workouts.find((x) => x.id === id);
+          Object.assign(w, { date, time, typeId: type.id, typeName: type.id === event.typeId ? event.typeName : type.name, updatedAt: (/* @__PURE__ */ new Date()).toISOString() });
+        })) {
+          s.close();
+          toast("运动记录已更新");
+        }
+      } catch (err) {
+        errorNode(f, err.message);
+      }
+    };
+    f.querySelector("[data-delete]").onclick = () => confirmSheet("删除这次运动？", event.typeName + " · " + dayLabel(event.date) + " " + event.time, async () => {
+      const ok = await commit((next) => next.workouts = next.workouts.filter((w) => w.id !== id));
+      if (ok) {
+        s.close();
+        toast("已删除运动记录");
+      }
+      return ok;
+    });
+  }
+  function typeSheet(id) {
+    const t = id ? state.types.find((x) => x.id === id) : null, title = t ? "修改运动种类" : "添加运动种类";
+    const s = sheet(title, '<form class="q-form">' + field("名称", '<input class="q-input" name="name" aria-label="运动种类名称" value="' + esc((t == null ? void 0 : t.name) || "") + '" maxlength="24" placeholder="例如：散步、骑车" required>') + '<p class="q-sheet-note">种类名称最多 24 个字符。改名不会改写以前的运动记录。</p>' + formTail() + "</form>");
+    const f = s.panel.querySelector("form");
+    bindSave(f);
+    f.querySelector("[data-cancel]").onclick = s.close;
+    f.onsubmit = async (e) => {
+      e.preventDefault();
+      const value = f.elements.name.value.trim();
+      if (!value || value.length > 24) {
+        errorNode(f, "请输入 1–24 个字符。");
+        return;
+      }
+      if (state.types.some((x) => x.id !== id && x.name.toLocaleLowerCase() === value.toLocaleLowerCase())) {
+        errorNode(f, "这个运动种类已经有了。");
+        return;
+      }
+      if (await commit((next) => {
+        if (t) next.types.find((x) => x.id === id).name = value;
+        else next.types.push({ id: uid(), name: value });
+      })) {
+        s.close();
+        toast(t ? "种类已改名" : "已添加运动种类");
+      }
+    };
+    f.elements.name.focus();
+  }
+  function removeType(id) {
+    const type = state.types.find((t) => t.id === id);
+    if (!type) return;
+    confirmSheet("移除「" + type.name + "」？", "已有的运动记录和时间都会保留，只从快捷种类中移除。", async () => {
+      const ok = await commit((next) => next.types = next.types.filter((t) => t.id !== id));
+      if (ok) toast("种类已移除，历史记录保留");
+      return ok;
+    });
+  }
+  function downloadFile(text, name2, type) {
+    const url = URL.createObjectURL(new Blob([text], { type })), a = document.createElement("a");
+    a.href = url;
+    a.download = name2;
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1e4);
+  }
+  function chooseFile(accept, handler) {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = accept;
+    input.className = "q-file-input";
+    input.setAttribute("aria-label", "导入记录备份");
+    document.body.append(input);
+    input.onchange = async () => {
+      var _a2;
+      try {
+        if ((_a2 = input.files) == null ? void 0 : _a2[0]) await handler(input.files[0]);
+      } catch (e) {
+        toast(e.message || "读取文件失败");
+      } finally {
+        input.remove();
+      }
+    };
+    input.addEventListener("cancel", () => input.remove());
+    input.click();
+  }
+  function backupImport() {
+    chooseFile(".json,application/json", async (file) => {
+      if (file.size > 8 * 1024 * 1024) throw Error("备份文件过大。");
+      const imported = parseBackup(await file.text()), days = Object.keys(imported.weights).length, records = Object.values(imported.weights).reduce((n, x) => n + (x.am ? 1 : 0) + (x.pm ? 1 : 0), 0);
+      const s = sheet("导入记录备份", '<div class="q-import-summary">' + days + " 天体重 · " + records + " 笔称重<br>" + imported.workouts.length + " 次运动 · " + imported.types.length + " 种运动<br>目标：" + (imported.goal === null ? "未设置" : fmt(imported.goal) + " kg") + '</div><p class="q-sheet-note">将与现有记录合并。相同日期的同一时段体重、相同编号的运动及目标，以导入文件为准；其他记录保留。美化不变。</p><div class="q-form-actions"><button class="q-btn" type="button" data-cancel>取消</button><button class="q-btn q-btn-primary" type="button" data-write data-import>确认合并</button></div>');
+      s.panel.querySelector("[data-cancel]").onclick = s.close;
+      s.panel.querySelector("[data-import]").onclick = async () => {
+        if (await commit((next) => Object.assign(next, mergeBackup(next, imported)))) {
+          s.close();
+          toast("备份已合并");
+        }
+      };
+    });
+  }
+  var themeOptions = [["glass", "日光", "linear-gradient(140deg,#f0e5cb,#c2b29b)"], ["cream", "奶油", "linear-gradient(140deg,#fff5dc,#dbc8a4)"], ["mint", "薄荷", "linear-gradient(140deg,#eff9e9,#b9cec1)"], ["lilac", "雾紫", "linear-gradient(140deg,#f5f0fa,#c4b8ce)"], ["rose", "樱粉", "linear-gradient(140deg,#fff1ee,#d6b7b8)"], ["plain", "素白", "linear-gradient(140deg,#fffefa,#e4dfd4)"]];
+  function themeSheet() {
+    if (!loaded) return;
+    if (themeEditor) {
+      themeEditor.panel.querySelector(".q-close").focus();
+      return;
+    }
+    if (draftCSS === null) {
+      draftCSS = state.theme.css;
+      draftPreset = state.theme.preset;
+    }
+    const s = sheet("轻记美化", '<div class="q-theme-presets">' + themeOptions.map(([id, label, color]) => '<button class="q-theme-choice" type="button" data-preset="' + id + '" aria-label="' + label + '主题"><span class="q-swatch" style="background:' + color + '"></span><span>' + label + "</span></button>").join("") + '</div><div class="q-theme-label"><span>自定义 CSS</span><span data-dirty></span></div><p class="q-sheet-note">修改后点应用。CSS 只作用于轻记，其他 App 不受影响。</p><textarea class="q-css-editor" aria-label="轻记自定义 CSS" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea><div class="q-theme-tools"><button type="button" class="q-btn" data-copy>复制</button><button type="button" class="q-btn" data-load>导入</button><button type="button" class="q-btn" data-export>导出</button><button type="button" class="q-btn" data-example>示例</button><button type="button" class="q-btn" data-clear>清空</button><button type="button" class="q-btn q-btn-primary" data-apply data-write>应用</button></div><div class="q-theme-status" role="status"></div><input class="q-file-input" type="file" accept=".css,.txt,text/css,text/plain" aria-label="导入美化 CSS 文件">', "q-theme-sheet");
+    themeEditor = s;
+    const code = s.panel.querySelector("textarea"), hint = s.panel.querySelector(".q-theme-status");
+    code.value = draftCSS;
+    function message(text, error = false) {
+      hint.textContent = text;
+      hint.dataset.error = error ? "true" : "false";
+    }
+    function update() {
+      s.panel.querySelector("[data-dirty]").textContent = draftCSS === state.theme.css && draftPreset === state.theme.preset ? "已应用" : "未应用的草稿";
+      for (const b of s.panel.querySelectorAll("[data-preset]")) b.setAttribute("aria-pressed", String(b.dataset.preset === draftPreset));
+    }
+    function setDraft(text, preset = draftPreset) {
+      draftCSS = text;
+      draftPreset = preset;
+      code.value = text;
+      update();
+    }
+    for (const b of s.panel.querySelectorAll("[data-preset]")) b.onclick = () => {
+      draftPreset = b.dataset.preset;
+      update();
+      message("已选择" + b.textContent + "，点击应用后生效。");
+    };
+    code.oninput = () => {
+      draftCSS = code.value;
+      update();
+      message("草稿尚未应用。");
+    };
+    s.panel.querySelector("[data-example]").onclick = () => {
+      setDraft(DEFAULT_CSS, "glass");
+      message("已载入日光玻璃示例，点击应用后生效。");
+    };
+    s.panel.querySelector("[data-clear]").onclick = () => {
+      setDraft("");
+      message("已清空自定义 CSS，点击应用恢复当前主题的基础样式。");
+    };
+    s.panel.querySelector("[data-copy]").onclick = async () => {
+      var _a2;
+      try {
+        if ((_a2 = navigator.clipboard) == null ? void 0 : _a2.writeText) await navigator.clipboard.writeText(code.value);
+        else throw Error();
+        message("已复制 CSS。");
+      } catch (_) {
+        code.focus();
+        code.select();
+        let ok = false;
+        try {
+          ok = document.execCommand("copy");
+        } catch (_2) {
+        }
+        message(ok ? "已复制 CSS。" : "请长按编辑框，选择全选并复制。", !ok);
+      }
+    };
+    s.panel.querySelector("[data-export]").onclick = () => {
+      downloadFile("/* QingJi theme:" + draftPreset + " */\n" + code.value, "QingJi-Theme.css", "text/css;charset=utf-8");
+      message("已导出当前主题 CSS。");
+    };
+    const input = s.panel.querySelector("input[type=file]");
+    s.panel.querySelector("[data-load]").onclick = () => input.click();
+    input.onchange = async () => {
+      var _a2;
+      try {
+        const file = (_a2 = input.files) == null ? void 0 : _a2[0];
+        if (!file) return;
+        if (file.size > 1e6) throw Error("请选择 1 MB 以内的 CSS 文件。");
+        const raw = (await file.text()).replace(/^\uFEFF/, "");
+        if (/\bexport\s+default\b/.test(raw)) throw Error("这里应导入 CSS 文件。");
+        const header = raw.match(/^\/\* QingJi theme:([a-z]+) \*\/\s*/);
+        const text = header ? raw.slice(header[0].length) : raw;
+        scopeCSS(text);
+        setDraft(text, header && THEMES.includes(header[1]) ? header[1] : draftPreset);
+        message("已导入，点击应用后生效。");
+      } catch (e) {
+        message(e.message, true);
+      } finally {
+        input.value = "";
+      }
+    };
+    s.panel.querySelector("[data-apply]").onclick = async () => {
+      try {
+        scopeCSS(code.value);
+        if (await commit((next) => next.theme = { preset: draftPreset, css: code.value })) {
+          draftCSS = code.value;
+          update();
+          message("已应用并单独保存。");
+        } else message("未保存，原样式保留。", true);
+      } catch (e) {
+        message(e.message, true);
+      }
+    };
+    const viewport = window.visualViewport;
+    function compact() {
+      s.panel.dataset.compact = viewport && viewport.height < 540 ? "true" : "false";
+    }
+    compact();
+    viewport == null ? void 0 : viewport.addEventListener("resize", compact);
+    s.cleanup = () => {
+      draftCSS = code.value;
+      viewport == null ? void 0 : viewport.removeEventListener("resize", compact);
+      themeEditor = null;
+    };
+    update();
+    message("内置壁纸与字体；导出只包含这份可编辑的美化。");
+  }
+  main.addEventListener("change", (e) => {
+    if (e.target.id === "q-day") {
+      if (validDate(e.target.value)) {
+        selectedDate = e.target.value;
+        render();
+      } else toast("请选择有效日期");
+    }
+  });
+  main.addEventListener("click", async (e) => {
+    const button = e.target.closest("[data-action]");
+    if (!button || button.disabled) return;
+    const a = button.dataset.action;
+    if (a === "day-prev" || a === "day-next") {
+      const next = addDays(selectedDate, a === "day-prev" ? -1 : 1);
+      if (validDate(next)) {
+        selectedDate = next;
+        render();
+      }
+    } else if (a === "day-today") {
+      selectedDate = dateKey();
+      render();
+    } else if (a === "weight") weightSheet(button.dataset.slot);
+    else if (a === "goal") goalSheet();
+    else if (a === "workout-add") await addWorkout(button.dataset.type);
+    else if (a === "workout-edit") workoutSheet(button.dataset.id);
+    else if (a === "type-add") typeSheet();
+    else if (a === "type-edit") typeSheet(button.dataset.id);
+    else if (a === "type-delete") removeType(button.dataset.id);
+    else if (a === "range-week" || a === "range-month") {
+      rangeMode = a === "range-week" ? "week" : "month";
+      render();
+    } else if (a === "range-prev" || a === "range-next") {
+      const next = shiftRange(trendAnchor, rangeMode, a === "range-prev" ? -1 : 1);
+      if (validDate(next)) {
+        trendAnchor = next;
+        render();
+      }
+    } else if (a === "chart-pick") {
+      pickedDate = button.dataset.date;
+      render();
+    } else if (a === "chart-edit") {
+      selectedDate = pickedDate;
+      tab = "today";
+      render();
+      main.scrollTop = 0;
+    } else if (a === "theme") themeSheet();
+    else if (a === "backup-export") {
+      downloadFile(JSON.stringify(exportBackup(state), null, 2), "QingJi-Records-" + dateKey() + ".json", "application/json");
+      toast("记录备份已导出");
+    } else if (a === "backup-import") backupImport();
+    else if (a === "retry") initialize();
+  });
+  main.addEventListener("keydown", (e) => {
+    if ((e.key === "Enter" || e.key === " ") && e.target.matches("svg [role=button]")) {
+      e.preventDefault();
+      e.target.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    }
+  });
+  for (const b of document.querySelectorAll("[data-tab]")) b.onclick = () => {
+    if (!loaded) return;
+    if (b.dataset.tab === "trend" && tab !== "trend") {
+      trendAnchor = selectedDate;
+      pickedDate = selectedDate;
+    }
+    tab = b.dataset.tab;
+    render();
+    main.scrollTop = 0;
+  };
+  themeLaunch.onclick = themeSheet;
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && sheets.length) {
+      e.preventDefault();
+      sheets.at(-1).close();
+    }
+    if (e.key === "Tab" && sheets.length) {
+      const nodes = [...sheets.at(-1).panel.querySelectorAll("button:not(:disabled),input:not([type=hidden]),select,textarea,a[href]")].filter((n) => n.getClientRects().length), first = nodes[0], last = nodes.at(-1);
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last == null ? void 0 : last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first == null ? void 0 : first.focus();
+      }
+    }
+  });
+  function fitViewport() {
+    if (window.visualViewport) document.documentElement.style.setProperty("--q-visible-h", window.visualViewport.height + "px");
+  }
+  var _a;
+  (_a = window.visualViewport) == null ? void 0 : _a.addEventListener("resize", fitViewport);
+  fitViewport();
+  function refreshToday() {
+    const today = dateKey();
+    if (today !== lastToday) {
+      if (selectedDate === lastToday) selectedDate = today;
+      lastToday = today;
+      if (loaded) render();
+    }
+  }
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) refreshToday();
+  });
+  setInterval(refreshToday, 6e4);
+  async function initialize() {
+    loaded = false;
+    themeLaunch.disabled = true;
+    status("正在读取");
+    main.innerHTML = '<div class="q-loading">正在读取记录…</div>';
+    try {
+      state = await storage.load();
+      loaded = true;
+      themeLaunch.disabled = false;
+      applyTheme();
+      render();
+      status(state.updatedAt ? "已保存" : "开始记录");
+    } catch (e) {
+      status("读取失败", true);
+      main.innerHTML = '<div class="q-error-panel">暂时无法读取记录。原有存档没有被覆盖。<p>' + esc(e.message || "请检查存储权限后重试。") + '</p><button type="button" data-action="retry">重新读取</button></div>';
+    }
+  }
+  renderIcons();
+  initialize();
+})();
+</script>
+</body>
+</html>

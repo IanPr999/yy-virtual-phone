@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>小手机</title>
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#7fa3c8">
+<meta http-equiv="refresh" content="0;url=./phone.html?v=37">
+<script>
+/* iOS Safari 的 HTTP 缓存很顽固：同一个 URL 刷新常直接吃旧缓存（尤其在 http:// 局域网下
+   Service Worker 根本不允许注册，没有任何缓存层可依赖）。
+   这里给跳转地址带上版本号：每次改完代码把 v=37 往上加一（与 sw.js 的 CACHE 版本保持一致），
+   URL 一变，iOS 就会当成一个新地址去网络取，彻底绕开缓存。 */
+location.replace('./phone.html?v=37');
+</script>
+<style>html,body{margin:0;height:100%;background:#7fa3c8;}</style>
+</head>
+<body></body>
+</html>
